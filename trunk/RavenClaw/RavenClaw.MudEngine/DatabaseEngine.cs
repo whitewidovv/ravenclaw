@@ -11,6 +11,9 @@ namespace RavenClaw.MudEngine
         private DbProviderFactory _Factory;
         private DbConnection _Connection;
 
+        /// <summary>
+        /// Creates a DatabaseEngine instance
+        /// </summary>
         public DatabaseEngine()
         {
             AppSettingsReader Settings = new AppSettingsReader();
@@ -26,6 +29,22 @@ namespace RavenClaw.MudEngine
             }
         }
 
+        /// <summary>
+        /// Creates a DatabaseEngine instance
+        /// </summary>
+        public DatabaseEngine(String Provider)
+        {
+            if (Provider != null)
+            {
+                _Factory = DbProviderFactories.GetFactory(Provider);
+                _Connection = _Factory.CreateConnection();
+            }
+            else
+            {
+                throw (new ArgumentNullException("Provider not supplied"));
+            }
+        }
+
          ~DatabaseEngine()
         {
             if (_Connection.State != System.Data.ConnectionState.Closed)
@@ -33,6 +52,22 @@ namespace RavenClaw.MudEngine
 
             _Connection.Dispose();
 
+        }
+
+        /// <summary>
+        /// Creates a DbCommand based object from the DB Provider
+        /// </summary>
+        public DbCommand CreateCommand()
+        {
+            return _Factory.CreateCommand();
+        }
+
+        /// <summary>
+        /// Creates a DbCommandBuilder based object from the DB Provider
+        /// </summary>
+        public DbCommandBuilder CreateCommandBuilder()
+        {
+            return _Factory.CreateCommandBuilder();
         }
 
     }
