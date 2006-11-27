@@ -29,6 +29,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -37,6 +38,7 @@
     <Compile Include="Commands\HandlePassword.cs" />
     <Compile Include="Commands\HandleUsername.cs" />
     <Compile Include="Commands\InvalidCommand.cs" />
+    <Compile Include="DatabaseEngine.cs" />
     <Compile Include="Exceptions\MudSessionClosedException.cs" />
     <Compile Include="Interfaces\ICommand.cs" />
     <Compile Include="MudEngine.cs" />
