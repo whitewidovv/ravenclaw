@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Data;
 using System.Data.Common;
 using System.Configuration;
 
@@ -35,7 +36,7 @@ namespace RavenClaw.MudEngine
                 _factory = DbProviderFactories.GetFactory(provider);
                 _connection = _factory.CreateConnection();
             } else {
-                throw (new Exception("Database Provider not set"));
+                throw (new Exceptions.DatabaseProviderNotFound());
             }
         }
 
@@ -51,7 +52,7 @@ namespace RavenClaw.MudEngine
         /// <summary>
         /// Creates a DbCommand based object from the DB Provider
         /// </summary>
-        public DbCommand CreateCommand()
+        internal DbCommand CreateCommand()
         {
             return _factory.CreateCommand();
         }
@@ -59,9 +60,56 @@ namespace RavenClaw.MudEngine
         /// <summary>
         /// Creates a DbCommandBuilder based object from the DB Provider
         /// </summary>
-        public DbCommandBuilder CreateCommandBuilder()
+        internal DbCommandBuilder CreateCommandBuilder()
         {
             return _factory.CreateCommandBuilder();
+        }
+
+        /// <summary>
+        /// Creates a transaction for the the connection based on the DB Provider.
+        /// </summary>
+        /// <returns>An instance of DBTransaction</returns>
+        internal DbTransaction CreateTransaction()
+        {
+            return _connection.BeginTransaction();
+        }
+
+        static internal void AddLongParameter(DbCommand command, string parameter, long parameterValue)
+        {
+            if (command == null)
+                throw new ArgumentNullException("command");
+
+            if (string.IsNullOrEmpty(parameter))
+                throw new ArgumentNullException("parameter");
+
+            DbParameter intParameter = command.CreateParameter();
+            intParameter.Direction = ParameterDirection.Input;
+            intParameter.Value = parameterValue;
+            intParameter.ParameterName = parameter;
+            intParameter.DbType = DbType.Int64;
+            
+            command.Parameters.Add(intParameter);
+
+        }
+
+        static internal void AddStringParameter(DbCommand command, string parameter, string parameterValue)
+        {
+            if (command == null)
+                throw new ArgumentNullException("command");
+
+            if (string.IsNullOrEmpty(parameter))
+                throw new ArgumentNullException("parameter");
+
+            if (string.IsNullOrEmpty(parameterValue))
+                throw new ArgumentNullException("parameterValue");
+
+            DbParameter intParameter = command.CreateParameter();
+            intParameter.Direction = ParameterDirection.Input;
+            intParameter.Value = parameterValue;
+            intParameter.ParameterName = parameter;
+            intParameter.DbType = DbType.String;
+
+            command.Parameters.Add(intParameter);
         }
 
     }

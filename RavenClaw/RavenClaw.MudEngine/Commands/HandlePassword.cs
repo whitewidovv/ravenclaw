@@ -26,13 +26,13 @@ namespace RavenClaw.MudEngine.Commands
         {
             if (mudSession.Username == "ckwop" && _password == "test")
             {
-                mudSession.SendData("Password Correct." + Environment.NewLine);
+                mudSession.WriteText("Password Correct." + Environment.NewLine);
                 mudSession.SessionStatus = SessionStatus.LoggedIn;
             }
             else
             {
-                mudSession.SendData("Password Incorrect." + Environment.NewLine);
-                mudSession.SendData("Password:");
+                mudSession.WriteText("Password Incorrect." + Environment.NewLine);
+                mudSession.WriteText("Password:");
             }
         }
 
