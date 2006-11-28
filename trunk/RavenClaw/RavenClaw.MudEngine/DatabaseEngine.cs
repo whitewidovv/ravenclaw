@@ -6,51 +6,45 @@ using System.Configuration;
 
 namespace RavenClaw.MudEngine
 {
-    class DatabaseEngine
+    internal class DatabaseEngine
     {
-        private DbProviderFactory _Factory;
-        private DbConnection _Connection;
+        private DbProviderFactory _factory;
+        private DbConnection _connection;
+
+        private static DatabaseEngine _instance = new DatabaseEngine();
+
+        public static DatabaseEngine Instance
+        {
+            get
+            {
+                return _instance;
+            }
+        }
 
         /// <summary>
         /// Creates a DatabaseEngine instance
         /// </summary>
-        public DatabaseEngine()
+        private DatabaseEngine()
         {
-            AppSettingsReader Settings = new AppSettingsReader();
-            String Provider;
+            AppSettingsReader settings = new AppSettingsReader();
+        
+            String provider = Convert.ToString(settings.GetValue("RavenClaw.DatabaseEngine.Provider", typeof(string)));
 
-            Provider = Settings.GetValue("RavenClaw.DatabaseEngine.Provider",typeof(string)).ToString();
-            if (Provider != null)
+            if (String.IsNullOrEmpty(provider))
             {
-                _Factory = DbProviderFactories.GetFactory(Provider);
-                _Connection = _Factory.CreateConnection();
+                _factory = DbProviderFactories.GetFactory(provider);
+                _connection = _factory.CreateConnection();
             } else {
                 throw (new Exception("Database Provider not set"));
             }
         }
 
-        /// <summary>
-        /// Creates a DatabaseEngine instance
-        /// </summary>
-        public DatabaseEngine(String Provider)
-        {
-            if (Provider != null)
-            {
-                _Factory = DbProviderFactories.GetFactory(Provider);
-                _Connection = _Factory.CreateConnection();
-            }
-            else
-            {
-                throw (new ArgumentNullException("Provider not supplied"));
-            }
-        }
-
          ~DatabaseEngine()
         {
-            if (_Connection.State != System.Data.ConnectionState.Closed)
-                _Connection.Close();
+            if (_connection.State != System.Data.ConnectionState.Closed)
+                _connection.Close();
 
-            _Connection.Dispose();
+            _connection.Dispose();
 
         }
 
@@ -59,7 +53,7 @@ namespace RavenClaw.MudEngine
         /// </summary>
         public DbCommand CreateCommand()
         {
-            return _Factory.CreateCommand();
+            return _factory.CreateCommand();
         }
 
         /// <summary>
@@ -67,7 +61,7 @@ namespace RavenClaw.MudEngine
         /// </summary>
         public DbCommandBuilder CreateCommandBuilder()
         {
-            return _Factory.CreateCommandBuilder();
+            return _factory.CreateCommandBuilder();
         }
 
     }
