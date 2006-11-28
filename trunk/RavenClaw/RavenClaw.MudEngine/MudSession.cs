@@ -81,10 +81,10 @@ namespace RavenClaw.MudEngine
 
         private void WritePreamble()
         {
-            SendData("Welcome to the Raven Claw Mud Engine" + Environment.NewLine);
-            SendData("------------------------------------" + Environment.NewLine);
+            WriteText("Welcome to the Raven Claw Mud Engine" + Environment.NewLine);
+            WriteText("------------------------------------" + Environment.NewLine);
 
-            SendData("Username:");
+            WriteText("Username:");
         }
         private string GetCommandText()
         {
@@ -93,7 +93,7 @@ namespace RavenClaw.MudEngine
             return reader.ReadLine();
         }
 
-        public void SendData(string messageToSend)
+        public void WriteText(string messageToSend)
         {
             if (!_tcpConnection.Connected)
             {

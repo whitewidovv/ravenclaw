@@ -11,7 +11,7 @@ namespace RavenClaw.MudEngine.Commands
 
         void ICommand.ExecuteCommand(MudSession mudSession)
         {
-            mudSession.SendData("I'm sorry master, I didn't understand your instruction." + Environment.NewLine);
+            mudSession.WriteText("I'm sorry master, I didn't understand your instruction." + Environment.NewLine);
         }
 
         #endregion

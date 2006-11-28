@@ -27,7 +27,7 @@ namespace RavenClaw.MudEngine.Commands
 
             mudSession.SessionStatus = SessionStatus.GivenUsername;
 
-            mudSession.SendData("Password:");
+            mudSession.WriteText("Password:");
         }
 
         #endregion
