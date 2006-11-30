@@ -40,10 +40,12 @@
     <Compile Include="Commands\InvalidCommand.cs" />
     <Compile Include="DatabaseEngine.cs" />
     <Compile Include="Data\Account.cs" />
+    <Compile Include="Data\DbCore.cs" />
     <Compile Include="Exceptions\AccountException.cs" />
     <Compile Include="Exceptions\DataBaseProviderNotFound.cs" />
     <Compile Include="Exceptions\MudSessionClosedException.cs" />
     <Compile Include="Interfaces\ICommand.cs" />
+    <Compile Include="Interfaces\IDatabase.cs" />
     <Compile Include="Interfaces\IPlane.cs" />
     <Compile Include="Interfaces\IRace.cs" />
     <Compile Include="MudEngine.cs" />
