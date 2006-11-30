@@ -16,6 +16,7 @@ namespace RavenClaw.MudEngine.Data
         public DbCore(ref DatabaseEngine engine)
         {
             DbCommand command;
+            String idx = null;
 
             if (engine != null)
                 _dbengine = engine;
@@ -23,7 +24,7 @@ namespace RavenClaw.MudEngine.Data
                 throw(new ArgumentNullException("passed null engine param"));
 
             // Create command object and create table
-            command = DatabaseEngine.CreateCommand();
+            command = engine.CreateCommand();
             command.CommandText = "CREATE TABLE IF NOT EXISTS " + TableName;
             // TODO: Pull out remaining fields from the collectionbase, and run the SQL
             command.ExecuteNonQuery();
