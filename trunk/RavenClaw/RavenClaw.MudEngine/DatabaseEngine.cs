@@ -71,7 +71,12 @@ namespace RavenClaw.MudEngine
         /// <returns>An instance of DBTransaction</returns>
         internal DbTransaction CreateTransaction()
         {
-            return _connection.BeginTransaction();
+            if (_connection != null && _connection.State == System.Data.ConnectionState.Open)
+                return _connection.BeginTransaction();
+            else
+                throw (new Exception("Not connected"));
+            
+        
         }
 
         static internal void AddLongParameter(DbCommand command, string parameter, long parameterValue)
