@@ -11,7 +11,20 @@ namespace RavenClaw.MudEngine.Interfaces
             get;
         }
 
+        /// <summary>
+        /// When the player gets "killed" can they respawn? Most of the time this will be true.
+        /// </summary>
+        bool Immortal
+        {
+            get;
+        }
+
         string Name
+        {
+            get;
+        }
+
+        public decimal ExperienceMultiplier
         {
             get;
         }
