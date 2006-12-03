@@ -46,8 +46,11 @@
     <Compile Include="Exceptions\MudSessionClosedException.cs" />
     <Compile Include="Interfaces\ICommand.cs" />
     <Compile Include="Interfaces\IDatabase.cs" />
+    <Compile Include="Interfaces\IKey.cs" />
+    <Compile Include="Interfaces\ILockable.cs" />
     <Compile Include="Interfaces\IPlane.cs" />
     <Compile Include="Interfaces\IRace.cs" />
+    <Compile Include="Interfaces\IWearable.cs" />
     <Compile Include="MudEngine.cs" />
     <Compile Include="MudSession.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

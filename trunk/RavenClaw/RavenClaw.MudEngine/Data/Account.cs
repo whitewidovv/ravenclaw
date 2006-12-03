@@ -151,6 +151,25 @@ namespace RavenClaw.MudEngine.Data
                 _mana = value;
             }
         }
+
+        private bool _isInvincible;
+
+        /// <summary>
+        /// Can the player even be damaged at all?
+        /// </summary>
+        public bool IsInvincible
+        {
+            get
+            {
+                return _isInvincible;
+            }
+            set
+            {
+                _dirty |= true;
+                _isInvincible = value;
+            }
+        }
+
         #endregion
 
         /// <summary>
